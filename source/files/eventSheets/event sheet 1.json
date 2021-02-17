@@ -1,0 +1,122 @@
+{
+	"name": "Event sheet 1",
+	"events": [
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 312303996493041
+				}
+			],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "Text",
+					"sid": 225552625421679,
+					"parameters": {
+						"text": "\"URL: \" & Browser.URL & newline &\n\"PORT:\" & Browser.Port"
+					}
+				}
+			],
+			"sid": 434078181770322
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Test1",
+					"sid": 135209050863243
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "console.log(\"Button clicked\");\nlet result = \"fetching http://localhost:8081/?id=hello&message=world\"\nruntime.objects.Status.getFirstInstance().text = result;\nruntime.objects.ResultTestA.getFirstInstance().text = result;\nfetch(`http://localhost:8081/?id=hello&message=world`)\n  .then((responses) => responses.json())\n  .then((results) => {\n    console.log(results);\n\tresult = results.results;\n\truntime.objects.ResultTestA.getFirstInstance().text = result;\n\truntime.objects.Status.getFirstInstance().text = `OK:${results.ok} - http://localhost:8081/?id=hello&message=world`;\n});"
+				}
+			],
+			"sid": 722267237269837
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Test2",
+					"sid": 270954338129731
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "console.log(\"Button clicked\");\n\nconst operation = choose(\"addition\",\"subtraction\",\"multiplication\",\"division\",\"remainder\",\"exponent\");\nconst operator = {\n\taddition: '+',\n\tsubtraction: '-',\n\tmultiplication: '*',\n\tdivision: '/',\n\tremainder: '%',\n\texponent: '**'\n};\nruntime.objects.Operation.getFirstInstance().text = operator[operation];\n\nconst min = 1;\nconst max = operation != \"exponent\" ? 1000 : 10\n\nconst randomA = getRandomIntInclusive(min,max);\nruntime.objects.RandomA.getFirstInstance().text = `${randomA}`;\n\nconst randomB = getRandomIntInclusive(min,max);\nruntime.objects.RandomB.getFirstInstance().text =  `${randomB}`;\n\nconst command = `http://localhost:8081/${operation}/?a=${randomA}&b=${randomB}`\nruntime.objects.Status.getFirstInstance().text = `fetching ${command}`;\n\n\nconst responses = await fetch(command);\nconst results = await responses.json();\nconsole.log(results);\nconst resultRounded = operation === \"division\" ? parseFloat(results.results).toFixed(2) : results.results;\nruntime.objects.OperationResult.getFirstInstance().text = `${resultRounded}`;\nruntime.objects.ResultTestB.getFirstInstance().text = `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`;\nruntime.objects.Status.getFirstInstance().text = `OK: ${results.ok} - ${command}`;\n\n\nfunction getRandomIntInclusive(min, max) {\n  min = Math.ceil(min);\n  max = Math.floor(max);\n  return Math.floor(Math.random() * (max - min + 1)) + min; //Il max è incluso e il min è incluso\n}\n\nfunction choose(...args) {\n    const index = Math.floor(Math.random() * args.length);\n    return args[index]\n}\n"
+				}
+			],
+			"sid": 897261976602972
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Test3",
+					"sid": 191756858090686
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "console.log(\"Button clicked\");\n\nconst min = 1;\nconst max = 100;\n\nconst randomA = getRandomIntInclusive(min,max);\nconst randomB = getRandomIntInclusive(min,max);\n\nconst command = `http://localhost:8081/random-operation?a=${randomA}&b=${randomB}`\nruntime.objects.Status.getFirstInstance().text = `fetching ${command}`;\n\n\nconst responses = await fetch(command);\nconst results = await responses.json();\nconsole.log(results);\nconst resultRounded = results.operation === \"division\" ? parseFloat(results.results).toFixed(2) : results.results;\nruntime.objects.OperationResult.getFirstInstance().text = `${resultRounded}`;\nruntime.objects.ResultTestC.getFirstInstance().text = `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`;\nruntime.objects.Status.getFirstInstance().text = `OK: ${results.ok} - ${command}`;\n\n\nfunction getRandomIntInclusive(min, max) {\n  min = Math.ceil(min);\n  max = Math.floor(max);\n  return Math.floor(Math.random() * (max - min + 1)) + min; //Il max è incluso e il min è incluso\n}"
+				}
+			],
+			"sid": 772152671738625
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Test4",
+					"sid": 929810286922444
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "console.log(\"Button clicked\");\nconst command = `http://localhost:8081/?id=Ciao&message=Mondo`\nruntime.objects.Status.getFirstInstance().text = `fetching ${command}`;\n\nconst responses = await fetch(command);\nconst results = await responses.json();\nconsole.log(results);\nruntime.objects.ResultTestD.getFirstInstance().text = results.results;\nruntime.objects.Status.getFirstInstance().text = `OK:${results.ok} - ${command}`;"
+				}
+			],
+			"sid": 854961021699360
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Close",
+					"sid": 701004168538287
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "console.log(\"Button clicked\");\nconst command = `http://localhost:8081/close`\nruntime.objects.Status.getFirstInstance().text = `fetching ${command}`;\n\nconst responses = await fetch(command);"
+				},
+				{
+					"id": "wait-for-previous-actions",
+					"objectClass": "System",
+					"sid": 579313362347697
+				},
+				{
+					"id": "close",
+					"objectClass": "Browser",
+					"sid": 685770783252149
+				}
+			],
+			"sid": 552690092023932
+		}
+	],
+	"sid": 593028432069644
+}
