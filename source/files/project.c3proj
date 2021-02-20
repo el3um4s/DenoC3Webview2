@@ -37,6 +37,22 @@
 			"author": "Scirra",
 			"version": "r236",
 			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "TiledBg",
+			"name": "Tiled Background",
+			"author": "Scirra",
+			"version": "r236",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Anchor",
+			"name": "Anchor",
+			"author": "Scirra",
+			"version": "r236",
+			"bundled": false
 		}
 	],
 	"uniqueId": "cdxs45nfpsw",
@@ -59,14 +75,26 @@
 			"ResultTestD",
 			"ResultTestB",
 			"Status",
-			"Close"
+			"Close",
+			"Noise",
+			"TiledBackground",
+			"Test5",
+			"RandomA2",
+			"Operation2",
+			"RandomB2",
+			"Random5",
+			"OperationResult2",
+			"ResultTestB2"
 		],
 		"subfolders": []
 	},
 	"autosaveData": null,
 	"containers": [],
 	"families": {
-		"items": [],
+		"items": [
+			"AnchorText",
+			"AnchorButton"
+		],
 		"subfolders": []
 	},
 	"layouts": {
@@ -83,7 +111,32 @@
 	},
 	"rootFileFolders": {
 		"script": {
-			"items": [],
+			"items": [
+				{
+					"name": "main.js",
+					"type": "application/javascript",
+					"sid": 635697761464478,
+					"script-info": {
+						"purpose": "main"
+					}
+				},
+				{
+					"name": "utils.js",
+					"type": "application/javascript",
+					"sid": 692448007529002,
+					"script-info": {
+						"purpose": "none"
+					}
+				},
+				{
+					"name": "importforevents.js",
+					"type": "application/javascript",
+					"sid": 127735188494070,
+					"script-info": {
+						"purpose": "imports-for-events"
+					}
+				}
+			],
 			"subfolders": []
 		},
 		"sound": {
@@ -99,7 +152,13 @@
 			"subfolders": []
 		},
 		"font": {
-			"items": [],
+			"items": [
+				{
+					"name": "SourceCodePro-Regular.ttf",
+					"type": "application/font-sfnt",
+					"sid": 965731819946303
+				}
+			],
 			"subfolders": []
 		},
 		"icon": {
@@ -164,7 +223,13 @@
 			"subfolders": []
 		},
 		"general": {
-			"items": [],
+			"items": [
+				{
+					"name": "mystyle.css",
+					"type": "text/css",
+					"sid": 234212674996625
+				}
+			],
 			"subfolders": []
 		}
 	},
@@ -179,26 +244,26 @@
 	},
 	"properties": {
 		"description": "",
-		"version": "demo 2021.02.17",
+		"version": "demo 2021.02.20",
 		"author": "Samuele (Strani Anelli) De Tomasi",
 		"authorEmail": "stranianelli@gmail.com",
 		"authorWebsite": "https://blog.stranianelli.com/",
 		"appId": "",
 		"pixelRounding": false,
 		"useLoaderLayout": false,
-		"fullscreenMode": "letterbox-scale",
+		"fullscreenMode": "off",
 		"fullscreenQuality": "high",
 		"viewportFit": "auto",
 		"backgroundColor": [
-			0,
-			0,
-			0,
+			0.9803921568627451,
+			0.9803921568627451,
+			0.9803921568627451,
 			0
 		],
 		"splashColor": [
-			1,
-			1,
-			1,
+			0.9803921568627451,
+			0.9803921568627451,
+			0.9803921568627451,
 			0
 		],
 		"useThemeColor": false,
@@ -218,7 +283,7 @@
 		"sampling": "trilinear",
 		"downscaling": "medium",
 		"maxSpriteSheetSize": 2048,
-		"loaderStyle": "splash",
+		"loaderStyle": "percent",
 		"preloadSounds": true,
 		"clearBackground": true,
 		"enhancedAccelerationPrecision": true,

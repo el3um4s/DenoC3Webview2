@@ -1,11 +1,11 @@
 {
-	"name": "DenoC3Webview3",
-	"short_name": "DenoC3Webview3",
+	"name": "DenoC3Webview2",
+	"short_name": "DenoC3Webview2",
 	"description": "",
 	"start_url": "index.html",
-	"display": "fullscreen",
+	"display": "standalone",
 	"orientation": "landscape",
-	"background_color": "#ffffff",
+	"background_color": "#fafafa",
 	"icons": [
 		{
 			"src": "icons/icon-16.png",

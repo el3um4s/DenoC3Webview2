@@ -1,126 +1,120 @@
 "use strict";
 
+import { PORT, log, status, getRandomIntInclusive, randomOperation, operator, roundResult } from "./utils.js";
 
 
 {
 	const scriptsInEvents = {
 
+		async EventSheet1_Event1_Act2(runtime, localVars)
+		{
+			window.addEventListener('beforeunload', async (e) => {
+				e.preventDefault();
+			 	const command = `http://localhost:${PORT()}/close`;
+			 	status(`fetching ${command}`);
+				await fetch(command);
+			});
+		},
+
 		async EventSheet1_Event2_Act1(runtime, localVars)
 		{
-			console.log("Button clicked");
-			let result = "fetching http://localhost:8081/?id=hello&message=world"
-			runtime.objects.Status.getFirstInstance().text = result;
-			runtime.objects.ResultTestA.getFirstInstance().text = result;
-			fetch(`http://localhost:8081/?id=hello&message=world`)
+			const first = "Hello";
+			const second = "World!"
+			const command = `http://localhost:${PORT()}/?first=${first}&second=${second}`
+			
+			status(`fetching ${command}`);
+			
+			fetch(command)
 			  .then((responses) => responses.json())
 			  .then((results) => {
-			    console.log(results);
-				result = results.results;
-				runtime.objects.ResultTestA.getFirstInstance().text = result;
-				runtime.objects.Status.getFirstInstance().text = `OK:${results.ok} - http://localhost:8081/?id=hello&message=world`;
+			  	log("ResultTestA", results.results);
+				status(`OK:${results.ok} - ${command}`);
 			});
 		},
 
 		async EventSheet1_Event3_Act1(runtime, localVars)
 		{
-			console.log("Button clicked");
-			
-			const operation = choose("addition","subtraction","multiplication","division","remainder","exponent");
-			const operator = {
-				addition: '+',
-				subtraction: '-',
-				multiplication: '*',
-				division: '/',
-				remainder: '%',
-				exponent: '**'
-			};
-			runtime.objects.Operation.getFirstInstance().text = operator[operation];
-			
+			const operation = randomOperation();
 			const min = 1;
 			const max = operation != "exponent" ? 1000 : 10
-			
 			const randomA = getRandomIntInclusive(min,max);
-			runtime.objects.RandomA.getFirstInstance().text = `${randomA}`;
-			
 			const randomB = getRandomIntInclusive(min,max);
-			runtime.objects.RandomB.getFirstInstance().text =  `${randomB}`;
+			const command = `http://localhost:${PORT()}/${operation}/?a=${randomA}&b=${randomB}`
 			
-			const command = `http://localhost:8081/${operation}/?a=${randomA}&b=${randomB}`
-			runtime.objects.Status.getFirstInstance().text = `fetching ${command}`;
-			
+			log("Operation", operator[operation]);
+			log("RandomA", randomA);
+			log("RandomB", randomB);
+			status(`fetching ${command}`);
 			
 			const responses = await fetch(command);
 			const results = await responses.json();
-			console.log(results);
-			const resultRounded = operation === "division" ? parseFloat(results.results).toFixed(2) : results.results;
-			runtime.objects.OperationResult.getFirstInstance().text = `${resultRounded}`;
-			runtime.objects.ResultTestB.getFirstInstance().text = `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`;
-			runtime.objects.Status.getFirstInstance().text = `OK: ${results.ok} - ${command}`;
+			const resultRounded = roundResult(results);
 			
-			
-			function getRandomIntInclusive(min, max) {
-			  min = Math.ceil(min);
-			  max = Math.floor(max);
-			  return Math.floor(Math.random() * (max - min + 1)) + min; //Il max è incluso e il min è incluso
-			}
-			
-			function choose(...args) {
-			    const index = Math.floor(Math.random() * args.length);
-			    return args[index]
-			}
-			
+			log("OperationResult", resultRounded);
+			log("ResultTestB", `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`);
+			status(`OK:${results.ok} - ${command}`);
 		},
 
 		async EventSheet1_Event4_Act1(runtime, localVars)
 		{
-			console.log("Button clicked");
-			
 			const min = 1;
 			const max = 100;
-			
 			const randomA = getRandomIntInclusive(min,max);
 			const randomB = getRandomIntInclusive(min,max);
+			const command = `http://localhost:${PORT()}/random-operation?a=${randomA}&b=${randomB}`
 			
-			const command = `http://localhost:8081/random-operation?a=${randomA}&b=${randomB}`
-			runtime.objects.Status.getFirstInstance().text = `fetching ${command}`;
-			
+			status(`fetching ${command}`);
 			
 			const responses = await fetch(command);
 			const results = await responses.json();
-			console.log(results);
-			const resultRounded = results.operation === "division" ? parseFloat(results.results).toFixed(2) : results.results;
-			runtime.objects.OperationResult.getFirstInstance().text = `${resultRounded}`;
-			runtime.objects.ResultTestC.getFirstInstance().text = `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`;
-			runtime.objects.Status.getFirstInstance().text = `OK: ${results.ok} - ${command}`;
+			const resultRounded = roundResult(results);
 			
-			
-			function getRandomIntInclusive(min, max) {
-			  min = Math.ceil(min);
-			  max = Math.floor(max);
-			  return Math.floor(Math.random() * (max - min + 1)) + min; //Il max è incluso e il min è incluso
-			}
+			log("ResultTestC", `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`);
+			status(`OK:${results.ok} - ${command}`);
 		},
 
 		async EventSheet1_Event5_Act1(runtime, localVars)
 		{
-			console.log("Button clicked");
-			const command = `http://localhost:8081/?id=Ciao&message=Mondo`
-			runtime.objects.Status.getFirstInstance().text = `fetching ${command}`;
+			const command = `http://localhost:${PORT()}/`;
+			
+			status(`fetching ${command}`);
 			
 			const responses = await fetch(command);
 			const results = await responses.json();
-			console.log(results);
-			runtime.objects.ResultTestD.getFirstInstance().text = results.results;
-			runtime.objects.Status.getFirstInstance().text = `OK:${results.ok} - ${command}`;
+			
+			log("ResultTestD", results.results);
+			status(`OK:${results.ok} - ${command}`);
 		},
 
 		async EventSheet1_Event6_Act1(runtime, localVars)
 		{
-			console.log("Button clicked");
-			const command = `http://localhost:8081/close`
-			runtime.objects.Status.getFirstInstance().text = `fetching ${command}`;
+			const operation = randomOperation();
+			const min = 1;
+			const max = operation != "exponent" ? 1000 : 10
+			const randomA = getRandomIntInclusive(min,max);
+			const randomB = getRandomIntInclusive(min,max);
+			const command = `http://localhost:${PORT()}/calc/${operation}/?a=${randomA}&b=${randomB}`
+			
+			log("Operation2", operator[operation]);
+			log("RandomA2", randomA);
+			log("RandomB2", randomB);
+			status(`fetching ${command}`);
 			
 			const responses = await fetch(command);
+			const results = await responses.json();
+			const resultRounded = roundResult(results);
+			
+			log("OperationResult2", resultRounded);
+			log("ResultTestB2", `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`);
+			status(`OK:${results.ok} - ${command}`);
+		},
+
+		async EventSheet1_Event7_Act1(runtime, localVars)
+		{
+			const command = `http://localhost:${PORT()}/close`
+			status(`fetching ${command}`);
+			
+			await fetch(command);
 		}
 
 	};

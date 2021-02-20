@@ -1,0 +1,21 @@
+{
+	"name": "AnchorButton",
+	"plugin-id": "Button",
+	"sid": 294803338548867,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Anchor",
+			"name": "Anchor",
+			"sid": 855324204473361
+		}
+	],
+	"members": [
+		"Test1",
+		"Test4",
+		"Close",
+		"Test3",
+		"Test2",
+		"Test5"
+	]
+}

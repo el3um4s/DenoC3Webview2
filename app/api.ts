@@ -1,86 +1,72 @@
 import { helpers, Router } from "./deps.ts";
+import { calc, sanitizeParam, randomOperation, randomMessage } from "./lib/utils.ts";
+import { APIParams, Results } from "./lib/interface.ts";
 
 export const controller = new AbortController();
 export const api = new Router();
-
-api.get("/", (ctx) => {
-  console.log("/");
-  const results = { results: "", ok: false };
-  const a = helpers.getQuery(ctx, { mergeParams: true });
-  console.log(a);
-  console.log(ctx.params);
-  console.log(a.id, a.message);
-  results.results = `${a.id} ${a.message}`;
-  results.ok = true;
-  ctx.response.body = results;
-});
 
 api.get("/close", (context) => {
   context.response.body = "Bye!";
   controller.abort();
 });
 
+api.get("/", (ctx) => {
+  const results: Results = { results: "", ok: false, operation: "", a: "", b: "" };
+  const params: APIParams = helpers.getQuery(ctx, { mergeParams: true });
+  if (params?.first && params?.second) {
+    console.log(`/${params.first} ${params.second}`);
+    results.results = `${params.first} ${params.second}`;
+    results.ok = true;
+  } else {
+    const message: string = randomMessage();
+      console.log(`/${message}`);
+    results.results = `${message}`;
+    results.ok = true;
+  }
+  ctx.response.body = results;
+});
+
 api.get("/random-operation", (ctx) => {
   console.log("/random-operation");
-  const param = helpers.getQuery(ctx, { mergeParams: true });
-  const operation: string = choose(
-    "addition",
-    "subtraction",
-    "multiplication",
-    "division",
-    "remainder",
-    "exponent",
-  );
-  const operator = {
-    addition: "+",
-    subtraction: "-",
-    multiplication: "*",
-    division: "/",
-    remainder: "%",
-    exponent: "**",
+  const param: APIParams = helpers.getQuery(ctx, { mergeParams: true });
+  const operation: string = randomOperation();
+
+  const results: Results = {
+    results: "",
+    ok: false,
+    operation,
+    a: sanitizeParam(param.a),
+    b: sanitizeParam(param.b),
   };
 
-  const a: number = parseInt(param.a);
-  const b: number = parseInt(param.b);
-  const results = { results: "", ok: false, operation, operator, a, b };
-
-  function calc(
-    { operation, a, b }: { operation: string; a: number; b: number },
-  ) {
-    return match(operation)
-      .on((op) => op === "addition", () => a + b)
-      .on((op) => op === "subtraction", () => a - b)
-      .on((op) => op === "multiplication", () => a * b)
-      .on((op) => op === "division", () => a / b)
-      .on((op) => op === "remainder", () => a % b)
-      .on((op) => op === "exponent", () => a ** b)
-      .otherwise((op) => () => 0);
+  if (param?.a && param?.b ) {
+    const result: number = calc({ operation, a: param.a, b: param.b });
+    results.results = `${result}`;
+    results.ok = true;
   }
-  const result = calc({ operation, a, b });
-  console.log(result);
-  results.results = `${result}`;
-  results.ok = true;
   ctx.response.body = results;
+});
 
-  function choose(...args: string[]): string {
-    return args[Math.floor(Math.random() * args.length)];
+api.get("/calc/:operation/", (ctx) => {
+  console.log("/calc/:operation/");
+  const param: APIParams = helpers.getQuery(ctx, { mergeParams: true });
+  const operation:string = sanitizeParam(param.operation);
+ 
+  const results: Results = {
+    results: "",
+    ok: false,
+    operation,
+    a: sanitizeParam(param.a),
+    b: sanitizeParam(param.b),
+  };
+  
+  if (param?.a && param?.b ) {
+    const result: number = calc({ operation, a: param.a, b: param.b });
+    results.results = `${result}`;
+    results.ok = true;
   }
-
-  function matched(x: any) {
-    return ({
-      on: () => matched(x),
-      otherwise: () => x,
-    });
-  }
-  function match(x: any) {
-    return ({
-      on: (
-        pred: (arg0: any) => any,
-        fn: (arg0: any) => any,
-      ) => (pred(x) ? matched(fn(x)) : match(x)),
-      otherwise: (fn: (arg0: any) => any) => fn(x),
-    });
-  }
+  
+  ctx.response.body = results;
 });
 
 api.get("/addition/", (ctx) => {

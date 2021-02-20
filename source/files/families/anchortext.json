@@ -1,0 +1,33 @@
+{
+	"name": "AnchorText",
+	"plugin-id": "Text",
+	"sid": 114793782980892,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Anchor",
+			"name": "Anchor",
+			"sid": 442088819613862
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"Operation",
+		"OperationResult",
+		"Random4",
+		"RandomA",
+		"RandomB",
+		"ResultTestA",
+		"ResultTestB",
+		"ResultTestC",
+		"ResultTestD",
+		"Status",
+		"Text",
+		"RandomA2",
+		"Operation2",
+		"RandomB2",
+		"Random5",
+		"OperationResult2",
+		"ResultTestB2"
+	]
+}

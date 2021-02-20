@@ -2,6 +2,16 @@
 	"name": "Event sheet 1",
 	"events": [
 		{
+			"eventType": "variable",
+			"name": "PORT",
+			"type": "number",
+			"initialValue": "8081",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 957880070305218
+		},
+		{
 			"eventType": "block",
 			"conditions": [
 				{
@@ -12,11 +22,23 @@
 			],
 			"actions": [
 				{
+					"id": "load-stylesheet",
+					"objectClass": "Browser",
+					"sid": 705045441947695,
+					"parameters": {
+						"url": "\"mystyle.css\""
+					}
+				},
+				{
+					"type": "script",
+					"script": "window.addEventListener('beforeunload', async (e) => {\n\te.preventDefault();\n \tconst command = `http://localhost:${PORT()}/close`;\n \tstatus(`fetching ${command}`);\n\tawait fetch(command);\n});"
+				},
+				{
 					"id": "set-text",
 					"objectClass": "Text",
-					"sid": 225552625421679,
+					"sid": 209921674932548,
 					"parameters": {
-						"text": "\"URL: \" & Browser.URL & newline &\n\"PORT:\" & Browser.Port"
+						"text": "\"URL: \" & Browser.URL"
 					}
 				}
 			],
@@ -34,7 +56,7 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": "console.log(\"Button clicked\");\nlet result = \"fetching http://localhost:8081/?id=hello&message=world\"\nruntime.objects.Status.getFirstInstance().text = result;\nruntime.objects.ResultTestA.getFirstInstance().text = result;\nfetch(`http://localhost:8081/?id=hello&message=world`)\n  .then((responses) => responses.json())\n  .then((results) => {\n    console.log(results);\n\tresult = results.results;\n\truntime.objects.ResultTestA.getFirstInstance().text = result;\n\truntime.objects.Status.getFirstInstance().text = `OK:${results.ok} - http://localhost:8081/?id=hello&message=world`;\n});"
+					"script": "const first = \"Hello\";\nconst second = \"World!\"\nconst command = `http://localhost:${PORT()}/?first=${first}&second=${second}`\n\nstatus(`fetching ${command}`);\n\nfetch(command)\n  .then((responses) => responses.json())\n  .then((results) => {\n  \tlog(\"ResultTestA\", results.results);\n\tstatus(`OK:${results.ok} - ${command}`);\n});"
 				}
 			],
 			"sid": 722267237269837
@@ -51,7 +73,7 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": "console.log(\"Button clicked\");\n\nconst operation = choose(\"addition\",\"subtraction\",\"multiplication\",\"division\",\"remainder\",\"exponent\");\nconst operator = {\n\taddition: '+',\n\tsubtraction: '-',\n\tmultiplication: '*',\n\tdivision: '/',\n\tremainder: '%',\n\texponent: '**'\n};\nruntime.objects.Operation.getFirstInstance().text = operator[operation];\n\nconst min = 1;\nconst max = operation != \"exponent\" ? 1000 : 10\n\nconst randomA = getRandomIntInclusive(min,max);\nruntime.objects.RandomA.getFirstInstance().text = `${randomA}`;\n\nconst randomB = getRandomIntInclusive(min,max);\nruntime.objects.RandomB.getFirstInstance().text =  `${randomB}`;\n\nconst command = `http://localhost:8081/${operation}/?a=${randomA}&b=${randomB}`\nruntime.objects.Status.getFirstInstance().text = `fetching ${command}`;\n\n\nconst responses = await fetch(command);\nconst results = await responses.json();\nconsole.log(results);\nconst resultRounded = operation === \"division\" ? parseFloat(results.results).toFixed(2) : results.results;\nruntime.objects.OperationResult.getFirstInstance().text = `${resultRounded}`;\nruntime.objects.ResultTestB.getFirstInstance().text = `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`;\nruntime.objects.Status.getFirstInstance().text = `OK: ${results.ok} - ${command}`;\n\n\nfunction getRandomIntInclusive(min, max) {\n  min = Math.ceil(min);\n  max = Math.floor(max);\n  return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\nfunction choose(...args) {\n    const index = Math.floor(Math.random() * args.length);\n    return args[index]\n}\n"
+					"script": "const operation = randomOperation();\nconst min = 1;\nconst max = operation != \"exponent\" ? 1000 : 10\nconst randomA = getRandomIntInclusive(min,max);\nconst randomB = getRandomIntInclusive(min,max);\nconst command = `http://localhost:${PORT()}/${operation}/?a=${randomA}&b=${randomB}`\n\nlog(\"Operation\", operator[operation]);\nlog(\"RandomA\", randomA);\nlog(\"RandomB\", randomB);\nstatus(`fetching ${command}`);\n\nconst responses = await fetch(command);\nconst results = await responses.json();\nconst resultRounded = roundResult(results);\n\nlog(\"OperationResult\", resultRounded);\nlog(\"ResultTestB\", `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`);\nstatus(`OK:${results.ok} - ${command}`);"
 				}
 			],
 			"sid": 897261976602972
@@ -68,7 +90,7 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": "console.log(\"Button clicked\");\n\nconst min = 1;\nconst max = 100;\n\nconst randomA = getRandomIntInclusive(min,max);\nconst randomB = getRandomIntInclusive(min,max);\n\nconst command = `http://localhost:8081/random-operation?a=${randomA}&b=${randomB}`\nruntime.objects.Status.getFirstInstance().text = `fetching ${command}`;\n\n\nconst responses = await fetch(command);\nconst results = await responses.json();\nconsole.log(results);\nconst resultRounded = results.operation === \"division\" ? parseFloat(results.results).toFixed(2) : results.results;\nruntime.objects.ResultTestC.getFirstInstance().text = `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`;\nruntime.objects.Status.getFirstInstance().text = `OK: ${results.ok} - ${command}`;\n\n\nfunction getRandomIntInclusive(min, max) {\n  min = Math.ceil(min);\n  max = Math.floor(max);\n  return Math.floor(Math.random() * (max - min + 1)) + min;\n}"
+					"script": "const min = 1;\nconst max = 100;\nconst randomA = getRandomIntInclusive(min,max);\nconst randomB = getRandomIntInclusive(min,max);\nconst command = `http://localhost:${PORT()}/random-operation?a=${randomA}&b=${randomB}`\n\nstatus(`fetching ${command}`);\n\nconst responses = await fetch(command);\nconst results = await responses.json();\nconst resultRounded = roundResult(results);\n\nlog(\"ResultTestC\", `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`);\nstatus(`OK:${results.ok} - ${command}`);"
 				}
 			],
 			"sid": 772152671738625
@@ -85,10 +107,27 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": "console.log(\"Button clicked\");\nconst command = `http://localhost:8081/?id=Ciao&message=Mondo`\nruntime.objects.Status.getFirstInstance().text = `fetching ${command}`;\n\nconst responses = await fetch(command);\nconst results = await responses.json();\nconsole.log(results);\nruntime.objects.ResultTestD.getFirstInstance().text = results.results;\nruntime.objects.Status.getFirstInstance().text = `OK:${results.ok} - ${command}`;"
+					"script": "const command = `http://localhost:${PORT()}/`;\n\nstatus(`fetching ${command}`);\n\nconst responses = await fetch(command);\nconst results = await responses.json();\n\nlog(\"ResultTestD\", results.results);\nstatus(`OK:${results.ok} - ${command}`);"
 				}
 			],
 			"sid": 854961021699360
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Test5",
+					"sid": 832308507824247
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "const operation = randomOperation();\nconst min = 1;\nconst max = operation != \"exponent\" ? 1000 : 10\nconst randomA = getRandomIntInclusive(min,max);\nconst randomB = getRandomIntInclusive(min,max);\nconst command = `http://localhost:${PORT()}/calc/${operation}/?a=${randomA}&b=${randomB}`\n\nlog(\"Operation2\", operator[operation]);\nlog(\"RandomA2\", randomA);\nlog(\"RandomB2\", randomB);\nstatus(`fetching ${command}`);\n\nconst responses = await fetch(command);\nconst results = await responses.json();\nconst resultRounded = roundResult(results);\n\nlog(\"OperationResult2\", resultRounded);\nlog(\"ResultTestB2\", `${results.operation}(${results.a}; ${results.b}) = ${resultRounded}`);\nstatus(`OK:${results.ok} - ${command}`);"
+				}
+			],
+			"sid": 298278456140561
 		},
 		{
 			"eventType": "block",
@@ -102,7 +141,7 @@
 			"actions": [
 				{
 					"type": "script",
-					"script": "console.log(\"Button clicked\");\nconst command = `http://localhost:8081/close`\nruntime.objects.Status.getFirstInstance().text = `fetching ${command}`;\n\nconst responses = await fetch(command);"
+					"script": "const command = `http://localhost:${PORT()}/close`\nstatus(`fetching ${command}`);\n\nawait fetch(command);"
 				},
 				{
 					"id": "wait-for-previous-actions",
@@ -116,6 +155,100 @@
 				}
 			],
 			"sid": 552690092023932
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Resize Canvas",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "ResizeCanvas",
+					"functionDescription": "",
+					"functionCategory": "Resize",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-canvas-size",
+							"objectClass": "System",
+							"sid": 942068579290472,
+							"parameters": {
+								"width": "PlatformInfo.WindowInnerWidth",
+								"height": "PlatformInfo.WindowInnerHeight"
+							}
+						}
+					],
+					"sid": 546113124857466
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 620666338862999
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "ResizeCanvas",
+							"sid": 360737897505496
+						}
+					],
+					"sid": 675182604609841
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-resized",
+							"objectClass": "Browser",
+							"sid": 764330500598246
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "ResizeCanvas",
+							"sid": 164495296093072
+						}
+					],
+					"sid": 918704045531872
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 829136085139971,
+							"parameters": {
+								"interval-seconds": "1/24"
+							}
+						},
+						{
+							"id": "evaluate-expression",
+							"objectClass": "System",
+							"sid": 715380610615391,
+							"parameters": {
+								"value": "((PlatformInfo.WindowInnerWidth) <> PlatformInfo.CanvasCssWidth) | ((PlatformInfo.WindowInnerHeight)<>PlatformInfo.CanvasCssHeight)"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "ResizeCanvas",
+							"sid": 401335766282733
+						}
+					],
+					"sid": 946284468965474
+				}
+			],
+			"sid": 650217547956414
 		}
 	],
 	"sid": 593028432069644

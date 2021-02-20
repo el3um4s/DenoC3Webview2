@@ -3,7 +3,7 @@ html, body {
 	margin: 0;
 	overflow: hidden;
 	
-	background: #000000;
+	background: #fafafa;
 	color: white;
 }
 
@@ -36,4 +36,9 @@ html, body, canvas {
 	color: #888;
 }
 
+
+@font-face {
+	font-family: 'sourcecodepro-regular';
+	src: url('fonts/sourcecodepro-regular.ttf') format('truetype');
+}
 
