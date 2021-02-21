@@ -1,11 +1,13 @@
-import { Router, Context } from "./deps.ts";
+import { Context, Router } from "./deps.ts";
 import * as words from "./controllers/words.ts";
 import * as calculator from "./controllers/calculator.ts";
 
 export const controller: AbortController = new AbortController();
 export const api: Router = new Router();
 
-api.get("/close", (ctx: Context) => { controller.abort(); });
+api.get("/close", (ctx: Context) => {
+  controller.abort();
+});
 
 api.get("/", words.message);
 api.get("/random-operation", calculator.randomOperation);

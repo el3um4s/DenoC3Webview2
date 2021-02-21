@@ -19,9 +19,9 @@ app.addEventListener("listen", ({ hostname, port }) => {
 console.log(`Deno.cwd() `, Deno.cwd());
 
 const { signal } = controller;
-app.listen({ 
-    port: port, 
-    signal
+app.listen({
+  port: port,
+  signal,
 });
 
-Deno.run({cmd: ["./wv.exe"]});
+Deno.run({ cmd: ["./wv.exe"] });

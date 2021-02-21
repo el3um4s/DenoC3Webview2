@@ -84,7 +84,11 @@
 			"RandomB2",
 			"Random5",
 			"OperationResult2",
-			"ResultTestB2"
+			"ResultTestB2",
+			"Test6",
+			"RandomA3",
+			"RandomB3",
+			"ResultTestB3"
 		],
 		"subfolders": []
 	},
@@ -93,7 +97,8 @@
 	"families": {
 		"items": [
 			"AnchorText",
-			"AnchorButton"
+			"AnchorButton",
+			"ButtonOverStatus"
 		],
 		"subfolders": []
 	},
@@ -134,6 +139,14 @@
 					"sid": 127735188494070,
 					"script-info": {
 						"purpose": "imports-for-events"
+					}
+				},
+				{
+					"name": "calculator.js",
+					"type": "application/javascript",
+					"sid": 711664535925824,
+					"script-info": {
+						"purpose": "none"
 					}
 				}
 			],
@@ -244,7 +257,7 @@
 	},
 	"properties": {
 		"description": "",
-		"version": "demo 2021.02.20",
+		"version": "demo 2021.02.21",
 		"author": "Samuele (Strani Anelli) De Tomasi",
 		"authorEmail": "stranianelli@gmail.com",
 		"authorWebsite": "https://blog.stranianelli.com/",

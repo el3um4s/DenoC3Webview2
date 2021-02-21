@@ -8,10 +8,9 @@ This is a very, very, very experimental project! I am trying to use [Deno](https
 
 There are 3 different versions of the same project:
 
-- [Webview only](https://github.com/el3um4s/DenoC3Webview2/releases/download/v0.0.2/webview.zip) (533KB)
-- [Webview and Deno_Dir](https://github.com/el3um4s/DenoC3Webview2/releases/download/v0.0.2/webview-and-deno_dir.zip)(1MB)
-- [Webview and Deno](https://github.com/el3um4s/DenoC3Webview2/releases/download/v0.0.2/webview-and-denojs.zip)(8.22MB)
-
+- [Webview only](https://github.com/el3um4s/DenoC3Webview2/releases/download/v0.0.3/webview.zip) (662 KB)
+- [Webview and Deno_Dir](https://github.com/el3um4s/DenoC3Webview2/releases/download/v0.0.3/webview-and-deno_dir.zip)(1,11 MB)
+- [Webview and Deno](https://github.com/el3um4s/DenoC3Webview2/releases/download/v0.0.3/webview-and-denojs.zip)(8,34 MB)
 
 **This is only for Windows 64-bit!**
 

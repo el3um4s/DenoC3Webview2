@@ -2744,6 +2744,7 @@ bbox.getBottom();this._isEnabled=true;this._StartTicking()}}}};
 		C3.ScriptsInEvents.EventSheet1_Event5_Act1,
 		C3.ScriptsInEvents.EventSheet1_Event6_Act1,
 		C3.ScriptsInEvents.EventSheet1_Event7_Act1,
+		C3.ScriptsInEvents.EventSheet1_Event8_Act1,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
 		C3.Plugins.Browser.Acts.Close,
 		C3.Plugins.System.Cnds.IsGroupActive,
@@ -2754,7 +2755,14 @@ bbox.getBottom();this._isEnabled=true;this._StartTicking()}}}};
 		C3.Plugins.System.Cnds.Every,
 		C3.Plugins.System.Cnds.EvaluateExpression,
 		C3.Plugins.PlatformInfo.Exps.CanvasCssWidth,
-		C3.Plugins.PlatformInfo.Exps.CanvasCssHeight
+		C3.Plugins.PlatformInfo.Exps.CanvasCssHeight,
+		C3.Plugins.System.Cnds.ForEach,
+		C3.Plugins.Button.Cnds.CompareY,
+		C3.Plugins.TiledBg.Exps.Y,
+		C3.Plugins.Button.Exps.Height,
+		C3.Plugins.TiledBg.Cnds.CompareY,
+		C3.Plugins.TiledBg.Exps.Height,
+		C3.Plugins.Button.Acts.SetVisible
 		];
 	};
 	self.C3_JsPropNameTable = [
@@ -2786,8 +2794,13 @@ bbox.getBottom();this._isEnabled=true;this._StartTicking()}}}};
 		{Random5: 0},
 		{OperationResult2: 0},
 		{ResultTestB2: 0},
+		{Test6: 0},
+		{RandomA3: 0},
+		{RandomB3: 0},
+		{ResultTestB3: 0},
 		{AnchorText: 0},
 		{AnchorButton: 0},
+		{ButtonOverStatus: 0},
 		{PORT: 0}
 	];
 }
@@ -2907,6 +2920,15 @@ bbox.getBottom();this._isEnabled=true;this._StartTicking()}}}};
 			const f2 = p._GetNode(2).GetBoundMethod();
 			const f3 = p._GetNode(3).GetBoundMethod();
 			return () => or(((f0()) !== (f1()) ? 1 : 0), ((f2()) !== (f3()) ? 1 : 0));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => (n0.ExpObject() - n1.ExpObject());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpObject();
 		}
 	];
 }

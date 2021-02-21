@@ -1,7 +1,7 @@
 "use strict";
 
 import { PORT, log, status, getRandomIntInclusive, randomOperation, operator, roundResult } from "./utils.js";
-
+import * as calculator from "./calculator.js";
 
 {
 	const scriptsInEvents = {
@@ -110,6 +110,43 @@ import { PORT, log, status, getRandomIntInclusive, randomOperation, operator, ro
 		},
 
 		async EventSheet1_Event7_Act1(runtime, localVars)
+		{
+			const min = 1;
+			const max = 15
+			const a = getRandomIntInclusive(min,max);
+			const b = getRandomIntInclusive(min,max);
+			log("RandomA3", a);
+			log("RandomB3", b);
+			
+			let resultString = "RESULT: ";
+			log("ResultTestB3", resultString);
+			
+			let operation = "addition";
+			let results = await calculator. calc(operation, a, b);
+			resultString += `${operation}(${a}; ${b}) = ${results}
+			`;
+			log("ResultTestB3", `${operation}(${a}; ${b}) = ${results}`);
+			
+			operation = "subtraction";
+			results = await calculator. calc(operation, a, b);
+			resultString += `${operation}(${a}; ${b}) = ${results}
+			`;
+			log("ResultTestB3", resultString);
+			
+			operation = "multiplication";
+			results = await calculator. calc(operation, a, b);
+			resultString += `${operation}(${a}; ${b}) = ${results}
+			`;
+			log("ResultTestB3", resultString);
+			
+			operation = "division";
+			results = await calculator. calc(operation, a, b);
+			resultString += `${operation}(${a}; ${b}) = ${results}
+			`;
+			log("ResultTestB3", resultString);
+		},
+
+		async EventSheet1_Event8_Act1(runtime, localVars)
 		{
 			const command = `http://localhost:${PORT()}/close`
 			status(`fetching ${command}`);

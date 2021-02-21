@@ -134,6 +134,23 @@
 			"conditions": [
 				{
 					"id": "on-clicked",
+					"objectClass": "Test6",
+					"sid": 482813204338388
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "const min = 1;\nconst max = 15\nconst a = getRandomIntInclusive(min,max);\nconst b = getRandomIntInclusive(min,max);\nlog(\"RandomA3\", a);\nlog(\"RandomB3\", b);\n\nlet resultString = \"RESULT: \";\nlog(\"ResultTestB3\", resultString);\n\nlet operation = \"addition\";\nlet results = await calculator. calc(operation, a, b);\nresultString += `${operation}(${a}; ${b}) = ${results}\n`;\nlog(\"ResultTestB3\", `${operation}(${a}; ${b}) = ${results}`);\n\noperation = \"subtraction\";\nresults = await calculator. calc(operation, a, b);\nresultString += `${operation}(${a}; ${b}) = ${results}\n`;\nlog(\"ResultTestB3\", resultString);\n\noperation = \"multiplication\";\nresults = await calculator. calc(operation, a, b);\nresultString += `${operation}(${a}; ${b}) = ${results}\n`;\nlog(\"ResultTestB3\", resultString);\n\noperation = \"division\";\nresults = await calculator. calc(operation, a, b);\nresultString += `${operation}(${a}; ${b}) = ${results}\n`;\nlog(\"ResultTestB3\", resultString);"
+				}
+			],
+			"sid": 925595608144470
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
 					"objectClass": "Close",
 					"sid": 701004168538287
 				}
@@ -246,6 +263,90 @@
 						}
 					],
 					"sid": 946284468965474
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 493520046293643,
+							"parameters": {
+								"object": "ButtonOverStatus"
+							}
+						},
+						{
+							"id": "compare-y",
+							"objectClass": "ButtonOverStatus",
+							"sid": 909298697611875,
+							"parameters": {
+								"comparison": 5,
+								"y-co-ordinate": "TiledBackground.Y - Self.Height"
+							}
+						},
+						{
+							"id": "compare-y",
+							"objectClass": "TiledBackground",
+							"sid": 133314924498745,
+							"parameters": {
+								"comparison": 4,
+								"y-co-ordinate": "Self.Height"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-visible",
+							"objectClass": "ButtonOverStatus",
+							"sid": 796612110366773,
+							"parameters": {
+								"visibility": "invisible"
+							}
+						}
+					],
+					"sid": 694993157380308
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "System",
+							"sid": 399073960172753,
+							"parameters": {
+								"object": "ButtonOverStatus"
+							}
+						},
+						{
+							"id": "compare-y",
+							"objectClass": "ButtonOverStatus",
+							"sid": 625894580647154,
+							"parameters": {
+								"comparison": 2,
+								"y-co-ordinate": "TiledBackground.Y- Self.Height"
+							}
+						},
+						{
+							"id": "compare-y",
+							"objectClass": "TiledBackground",
+							"sid": 748655315975251,
+							"parameters": {
+								"comparison": 4,
+								"y-co-ordinate": "Self.Height"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-visible",
+							"objectClass": "ButtonOverStatus",
+							"sid": 206454377075792,
+							"parameters": {
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 982482366486036
 				}
 			],
 			"sid": 650217547956414

@@ -5,12 +5,21 @@ input[type=button] {
   	cursor: pointer;
   	font-family: 'SourceCodePro-Regular', serif;
 	border-radius: 8px;
-/* 	width: 96px!important;
-	position: absolute;
-	left: 24px!important; */
 }
 
 input[type=button]:hover {
   	background-color: rgb(10,10,10);
   	color: rgb(250, 250, 250);
+}
+
+#close {
+	background-color: rgb(10,10,10);
+  	color: rgb(250, 250, 250);
+	border: 2px solid rgb(250, 250, 250);
+	border-radius: 0px;
+}
+
+#close:hover {
+	background-color: rgb(250, 250, 250);
+  	color: rgb(10,10, 10);
 }
