@@ -1,30 +1,13 @@
-export function randomOperation () : string {
-  const operation:string = choose(
-    "addition",
-    "subtraction",
-    "multiplication",
-    "division",
-    "remainder",
-    "exponent",
-  );
-  return operation;
-}
-
-export function randomMessage() : string {
-  const message: string = choose(
-    "Hello world",
-    "Hola món",
-    "Hallo Welt",
-    "Bonjour le monde",
-    "Ciao Mondo"
-    );
-  return message;
-}
-
 export function sanitizeParam(param: string | undefined): string {
   const result: string = param ? param : "";
   return result;
 }
+
+export function paramIsString(param: string | undefined): boolean {
+  const result: boolean = param ? true : false;
+  return result;
+}
+
 
 export function calc ( { operation, a, b }: {operation:string, a:string, b:string}): number {
   const result: number = calculate({ operation, a: parseInt(a), b: parseInt(b) });

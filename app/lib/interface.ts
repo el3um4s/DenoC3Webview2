@@ -6,6 +6,15 @@ export interface APIParams {
     second?: string,
 }
 
+export interface APIcalculator {
+  operationPresent: boolean,
+  operation: string,
+  aPresent: boolean,
+  a: string,
+  bPresent: boolean,
+  b: string,
+}
+
 export interface Results {
   results: string,
   ok: boolean,
