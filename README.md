@@ -25,12 +25,12 @@ It requires to have Deno already installed on the pc. You also need an internet 
 To launch click on **"run.bat"** or from console/shell use:
 
 ```
-deno.exe run --allow-run --allow-read --allow-net mod.ts
+deno run --allow-run --allow-read --allow-net mod.ts
 ```
 
 It may be necessary to [force the download](https://deno.land/manual@v1.7.4/linking_to_external_code/reloading_modules#reloading-modules) of the necessary modules with:
 ```
-deno.exe run --allow-run --allow-read --allow-net --reload mod.ts
+deno run --allow-run --allow-read --allow-net --reload mod.ts
 ```
 
 ### Webview and Deno_Dir

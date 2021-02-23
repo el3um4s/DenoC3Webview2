@@ -95,7 +95,7 @@ function calculateFromAPIcalculator(param: APIcalculator): Results {
     operation: param.operation,
     a: param.a,
     b: param.b,
-  };
+};
 
   if (param.aPresent && param.bPresent && param.operationPresent) {
     const result: number = utils.calc({
