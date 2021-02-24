@@ -46,3 +46,9 @@ To launch click on **"run.bat"**
 ![Webview and Deno](/assets/folder-webview-and-deno.jpg)
 
 You don't need Deno. And You don't need any internet connection. Click on **"run.exe"** to launch.
+
+### Docs
+
+I wrote a free article in Patreon about this project:
+
+- [Deno, C3 & WebView](https://www.patreon.com/posts/47942650)
