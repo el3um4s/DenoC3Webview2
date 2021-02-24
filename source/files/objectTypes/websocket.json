@@ -1,0 +1,10 @@
+{
+	"name": "WebSocket",
+	"plugin-id": "C2WebSocket",
+	"sid": 226919532283135,
+	"singleglobal-inst": {
+		"type": "WebSocket",
+		"properties": {},
+		"uid": 33
+	}
+}

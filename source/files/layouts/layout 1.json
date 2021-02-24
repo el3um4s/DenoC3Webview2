@@ -1167,7 +1167,7 @@
 					"world": {
 						"x": 152,
 						"y": 336,
-						"width": 696,
+						"width": 408,
 						"height": 104,
 						"originX": 0,
 						"originY": 0,
@@ -1429,6 +1429,46 @@
 						"x": 784,
 						"y": 0,
 						"width": 72,
+						"height": 24,
+						"originX": 0,
+						"originY": 0,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						]
+					}
+				},
+				{
+					"type": "Test7",
+					"properties": {
+						"type": "button",
+						"text": "TEST 7",
+						"tooltip": "",
+						"initially-visible": true,
+						"enabled": true,
+						"auto-font-size": true,
+						"checked": false,
+						"id": ""
+					},
+					"uid": 34,
+					"instanceVariables": {},
+					"behaviors": {
+						"Anchor": {
+							"properties": {
+								"left-edge": "window-left",
+								"top-edge": "window-top",
+								"right-edge": "none",
+								"bottom-edge": "none",
+								"enabled": true
+							}
+						}
+					},
+					"world": {
+						"x": 576,
+						"y": 304,
+						"width": 96,
 						"height": 24,
 						"originX": 0,
 						"originY": 0,

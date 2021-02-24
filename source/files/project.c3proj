@@ -1,6 +1,6 @@
 {
 	"projectFormatVersion": 1,
-	"savedWithRelease": 23600,
+	"savedWithRelease": 23700,
 	"name": "DenoC3Webview2",
 	"runtime": "c3",
 	"useWorker": "auto",
@@ -11,7 +11,7 @@
 			"id": "Text",
 			"name": "Text",
 			"author": "Scirra",
-			"version": "r236",
+			"version": "r237",
 			"bundled": false
 		},
 		{
@@ -19,7 +19,7 @@
 			"id": "PlatformInfo",
 			"name": "Platform info",
 			"author": "Scirra",
-			"version": "r236",
+			"version": "r237",
 			"bundled": false
 		},
 		{
@@ -27,7 +27,7 @@
 			"id": "Browser",
 			"name": "Browser",
 			"author": "Scirra",
-			"version": "r236",
+			"version": "r237",
 			"bundled": false
 		},
 		{
@@ -35,7 +35,7 @@
 			"id": "Button",
 			"name": "Button",
 			"author": "Scirra",
-			"version": "r236",
+			"version": "r237",
 			"bundled": false
 		},
 		{
@@ -43,7 +43,15 @@
 			"id": "TiledBg",
 			"name": "Tiled Background",
 			"author": "Scirra",
-			"version": "r236",
+			"version": "r237",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "C2WebSocket",
+			"name": "WebSocket",
+			"author": "Scirra",
+			"version": "r237",
 			"bundled": false
 		},
 		{
@@ -51,7 +59,7 @@
 			"id": "Anchor",
 			"name": "Anchor",
 			"author": "Scirra",
-			"version": "r236",
+			"version": "r237",
 			"bundled": false
 		}
 	],
@@ -88,7 +96,9 @@
 			"Test6",
 			"RandomA3",
 			"RandomB3",
-			"ResultTestB3"
+			"ResultTestB3",
+			"WebSocket",
+			"Test7"
 		],
 		"subfolders": []
 	},

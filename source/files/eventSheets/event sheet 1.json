@@ -350,6 +350,128 @@
 				}
 			],
 			"sid": 650217547956414
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "WebSocket",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 570371987335676
+						}
+					],
+					"actions": [
+						{
+							"id": "connect",
+							"objectClass": "WebSocket",
+							"sid": 252760557046500,
+							"parameters": {
+								"url": "\"ws://localhost:8082\"",
+								"protocol-optional": "\"\""
+							}
+						}
+					],
+					"sid": 468659787028064
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-connecting",
+							"objectClass": "WebSocket",
+							"sid": 516199258555983
+						}
+					],
+					"actions": [
+						{
+							"id": "log",
+							"objectClass": "Browser",
+							"sid": 900367885620965,
+							"parameters": {
+								"type": "log",
+								"message": "\"Connecting... \" & wallclocktime"
+							}
+						}
+					],
+					"sid": 280440841877724
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-opened",
+							"objectClass": "WebSocket",
+							"sid": 372224322184938
+						}
+					],
+					"actions": [
+						{
+							"id": "log",
+							"objectClass": "Browser",
+							"sid": 145993339070521,
+							"parameters": {
+								"type": "log",
+								"message": "\"CONNECTED: \" & wallclocktime"
+							}
+						}
+					],
+					"sid": 239248397584343
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 865393054003347,
+							"parameters": {
+								"interval-seconds": "1.0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "send-text",
+							"objectClass": "WebSocket",
+							"sid": 482503965649722,
+							"parameters": {
+								"data": "\"TIME: \" & wallclocktime"
+							}
+						}
+					],
+					"sid": 967040293128840
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-message",
+							"objectClass": "WebSocket",
+							"sid": 156263812740618
+						}
+					],
+					"actions": [
+						{
+							"id": "log",
+							"objectClass": "Browser",
+							"sid": 293184887197655,
+							"parameters": {
+								"type": "log",
+								"message": "\"TEXT MESSAGE \" & WebSocket.MessageText"
+							}
+						}
+					],
+					"sid": 123127988205085
+				}
+			],
+			"sid": 803877728729694
 		}
 	],
 	"sid": 593028432069644
